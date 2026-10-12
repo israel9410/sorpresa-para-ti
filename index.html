@@ -3,123 +3,414 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Una sorpresa para ti ❤️</title>
+<meta name="theme-color" content="#101735">
+<title>Para ti, bajo las estrellas ✨</title>
+
 <style>
+:root {
+  --rosa: #ffb8d0;
+  --blanco: #fff8ff;
+  --dorado: #ffe7ac;
+}
 * { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
 body {
   margin: 0;
   min-height: 100vh;
-  padding: 24px 16px;
+  color: var(--blanco);
+  font-family: Georgia, "Times New Roman", serif;
+  background:
+    radial-gradient(ellipse at 50% 12%, #574d87 0%, transparent 42%),
+    radial-gradient(ellipse at 85% 55%, #523765 0%, transparent 45%),
+    linear-gradient(180deg, #101735 0%, #25264f 42%, #6e456f 76%, #d68aa2 120%);
+  overflow-x: hidden;
+}
+
+#cielo {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.estrella {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 7px #fff;
+  animation: brillar var(--duracion, 3s) ease-in-out infinite alternate;
+}
+
+@keyframes brillar {
+  from { opacity: .25; transform: scale(.7); }
+  to { opacity: 1; transform: scale(1.5); }
+}
+
+.cometa {
+  position: absolute;
+  width: 145px;
+  height: 3px;
+  top: 17%;
+  left: -180px;
+  transform: rotate(-24deg);
+  border-radius: 100%;
+  background: linear-gradient(90deg, transparent, #ffd9f0, white);
+  box-shadow: 0 0 16px #ffd8f0, 0 0 32px #ffb9df;
+  animation: cruzar 11s 2s ease-in-out infinite;
+}
+
+.cometa::after {
+  content: "";
+  position: absolute;
+  right: -4px;
+  top: -4px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: white;
+  box-shadow: 0 0 18px 5px #fff0ff;
+}
+
+@keyframes cruzar {
+  0%, 8% { left: -180px; top: 25%; opacity: 0; }
+  12% { opacity: 1; }
+  55% { left: 115%; top: 5%; opacity: .9; }
+  56%, 100% { left: 115%; opacity: 0; }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  width: min(100% - 28px, 680px);
+  margin: auto;
+  padding: 66px 0 48px;
+}
+
+.portada {
+  min-height: 75vh;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(145deg, #fff0f3, #f9e1ed, #fff7f0);
-  color: #633b4a;
-  font-family: Georgia, "Times New Roman", serif;
-}
-.carta {
-  width: 100%;
-  max-width: 480px;
-  padding: 30px 23px;
-  background: white;
-  border: 1px solid #f1cbd7;
-  border-radius: 22px;
-  box-shadow: 0 12px 35px #8c52651c;
   text-align: center;
 }
-.flores { font-size: 30px; }
-h1, h2 { color: #a34868; }
-p { font-size: 17px; line-height: 1.7; }
-.pregunta {
-  margin-top: 25px;
-  padding: 18px;
-  background: #fff2f5;
-  border-radius: 16px;
+
+.etiqueta {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font: 11px Arial, sans-serif;
+  color: #f9d5ec;
 }
-button {
-  display: block;
+
+h1 {
+  margin: 22px 0 16px;
+  font-size: clamp(37px, 8vw, 64px);
+  line-height: 1.13;
+  font-weight: normal;
+  text-shadow: 0 0 30px #d9b5ff55;
+}
+
+h1 span { color: var(--rosa); }
+
+.intro {
+  max-width: 480px;
+  font-size: 18px;
+  line-height: 1.9;
+  color: #f4e9ff;
+}
+
+.boton {
+  display: inline-block;
   width: 100%;
-  margin: 10px 0;
-  padding: 13px;
-  border: 1px solid #e9bdcc;
-  border-radius: 12px;
-  background: white;
-  color: #743b50;
-  font-size: 16px;
+  padding: 15px 18px;
+  margin-top: 12px;
+  border-radius: 30px;
+  border: 1px solid #f8c8e2a6;
+  background: #ffffff12;
+  color: white;
+  font: 15px Arial, sans-serif;
+  text-align: center;
+  text-decoration: none;
   cursor: pointer;
+  transition: .25s ease;
 }
-button:hover { background: #ffe4ec; }
-#cartaSecreta {
-  display: none;
-  margin-top: 22px;
-  padding-top: 15px;
-  border-top: 1px solid #efcbd7;
-  text-align: left;
+
+.boton:hover {
+  background: #ffffff24;
+  transform: translateY(-2px);
 }
-.firma { text-align: right; color: #a34868; }
-.pequeno { font-size: 13px; opacity: .75; }
+
+.boton.principal {
+  background: linear-gradient(110deg, #c77da9, #8f7cc7);
+  border-color: #f7d5f0;
+  box-shadow: 0 0 25px #b990dc35;
+}
+
+.seccion {
+  margin: 34px 0;
+  padding: 30px 23px;
+  border: 1px solid #ffffff28;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #ffffff13, #ffffff06);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 12px 35px #090b241a;
+}
+
+.seccion h2 {
+  text-align: center;
+  font-size: 27px;
+  font-weight: normal;
+  color: var(--rosa);
+}
+
+.seccion p {
+  font-size: 17px;
+  line-height: 1.95;
+  color: #fff5ff;
+}
+
+.hilo {
+  text-align: center;
+  font-size: 32px;
+  letter-spacing: 9px;
+  color: #ffb2ca;
+  text-shadow: 0 0 18px #ff9ecb77;
+  margin: 20px 0;
+}
+
+.centrado { text-align: center; }
+
+.oculto { display: none; }
+
+#carta, #final {
+  animation: aparecer 1.2s ease both;
+}
+
+@keyframes aparecer {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.firma {
+  text-align: right;
+  color: var(--rosa) !important;
+}
+
+.nota {
+  text-align: center;
+  color: #f0d8ef;
+  font-size: 13px;
+  line-height: 1.7;
+  margin-top: 32px;
+}
+
+footer {
+  text-align: center;
+  padding: 20px 0;
+  color: #f4dff4;
+  font-size: 13px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
 </style>
 </head>
+
 <body>
-<main class="carta">
-  <div class="flores">🌷 💗 🌷</div>
-  <h1>Una pequeña sorpresa para ti</h1>
-  <p>
-    Para la persona que ocupa un lugar tan especial
-    en mi corazón. Antes de continuar, quiero hacerte
-    una preguntita. ❤️
-  </p>
+<div id="cielo" aria-hidden="true">
+  <div class="cometa"></div>
+</div>
 
-  <section class="pregunta" id="pregunta">
-    <p><strong>¿Qué es lo que más deseo para nuestra historia?</strong></p>
-    <button onclick="responder(false)">Que todo sea perfecto siempre.</button>
-    <button onclick="responder(true)">Seguir eligiéndonos y construir recuerdos juntos.</button>
-    <button onclick="responder(false)">No volver a tener días difíciles.</button>
-    <p id="mensaje" class="pequeno" aria-live="polite"></p>
+<main>
+  <section class="portada">
+    <div class="etiqueta">Una pequeña historia de dos</div>
+
+    <h1>Entre millones<br>
+      de estrellas, <span>tú.</span>
+    </h1>
+
+    <p class="intro">
+      Dicen que el universo es inmenso.
+      Hay millones de estrellas, caminos y posibilidades…
+      pero qué bonito es coincidir contigo.
+    </p>
+
+    <button class="boton principal"
+      onclick="irA('encuentro')">
+      Hay algo que quiero contarte ✨
+    </button>
+
+    <p class="nota">Una sorpresa hecha especialmente para ti ♡</p>
   </section>
 
-  <section id="cartaSecreta">
-    <h2 style="text-align:center">Mi amor, 💌</h2>
+  <section class="seccion" id="encuentro">
+    <div class="hilo">✧ ─ ♡ ─ ✧</div>
+
+    <h2>Quizá no todo sea perfecto…</h2>
+
     <p>
-      Si pudiera regalarte algo más que flores, sería
-      la certeza de que eres alguien muy especial para mí.
+      A veces las palabras no alcanzan.
+      A veces los días se complican y no encontramos
+      la forma correcta de decir lo que sentimos.
     </p>
+
     <p>
-      Sé que el amor no se demuestra solamente con palabras.
-      También vive en los pequeños detalles, en escuchar,
-      en aprender a comprendernos y en cuidar lo que
-      estamos construyendo.
+      Pero hay algo que quiero que sepas:
+      para mí, amar también significa aprender,
+      escuchar, cuidar los pequeños detalles y
+      seguir descubriendo cómo hacerte sentir querida.
     </p>
-    <p>
-      No te prometo ser perfecto. Quiero aprender, mejorar
-      y demostrarte con mis acciones lo mucho que significas
-      para mí. Quiero seguir creando contigo recuerdos que
-      algún día nos hagan sonreír.
+
+    <p class="centrado">
+      No quiero una historia perfecta.<br>
+      <strong>Quiero una historia sincera contigo.</strong>
     </p>
-    <p>
-      Preparé algo bonito para nosotros. Por ahora solo te
-      diré esto: guarda un poquito de ilusión para nuestra
-      próxima aventura. ✨
-    </p>
-    <p class="firma">Con todo mi amor,<br>tu esposo ❤️</p>
+
+    <div class="hilo">∞</div>
+
+    <button class="boton principal" onclick="abrirCarta()">
+      Abrir una carta para ti 💌
+    </button>
   </section>
 
-  <p class="pequeno">Hecho con cariño, especialmente para ti.</p>
+  <section class="seccion oculto" id="carta">
+    <div class="etiqueta centrado">Desde mi corazón</div>
+    <h2>Mi amor…</h2>
+
+    <p>
+      Si pudiera regalarte una parte del cielo,
+      elegiría ese instante en que el día se despide
+      y las primeras estrellas comienzan a aparecer.
+      Porque hay algo en esa belleza que me recuerda
+      lo especial que es compartir la vida contigo.
+    </p>
+
+    <p>
+      Sé que no siempre encuentro las palabras
+      adecuadas ni acierto en todos los detalles.
+      No quiero que mis errores te hagan dudar
+      de lo importante que eres para mí.
+    </p>
+
+    <p>
+      Quiero aprender a conocerte mejor, prestar
+      atención a las cosas que te hacen feliz y
+      demostrarte mi amor con hechos, no solamente
+      con promesas bonitas.
+    </p>
+
+    <p>
+      Gracias por los recuerdos que ya compartimos
+      y por todas las cosas bonitas que todavía
+      podemos descubrir. No te pido que todo sea
+      perfecto; quiero poner de mi parte para que
+      construyamos algo que nos haga bien a los dos.
+    </p>
+
+    <p>
+      Hoy preparé una pequeña aventura para nosotros.
+      No voy a contarte todavía de qué se trata…
+      solo quiero que te permitas disfrutar la sorpresa.
+    </p>
+
+    <p class="firma">
+      Con todo mi amor,<br>
+      tu esposo ❤️
+    </p>
+
+    <button class="boton" onclick="abrirMusica()">
+      Escuchar Sparkle ♪
+    </button>
+
+    <p class="nota">
+      La música se abrirá en otra pestaña.
+      Tú decides si quieres reproducirla.
+    </p>
+
+    <button class="boton principal" onclick="mostrarFinal()">
+      Hay algo más para ti… 🌠
+    </button>
+  </section>
+
+  <section class="seccion oculto" id="final">
+    <div class="etiqueta centrado">Nuestra próxima aventura</div>
+    <h2>¿Lista para crear otro recuerdo conmigo?</h2>
+
+    <div class="hilo">☾ ✧ ♡ ✧ ☽</div>
+
+    <p class="centrado">
+      Hay una sorpresa esperándonos.
+      Por ahora, solo te diré que quiero compartirla
+      contigo y guardar ese momento en nuestra historia.
+    </p>
+
+    <p class="centrado">
+      Guarda un poquito de ilusión para lo que viene.
+      El resto lo descubrirás a su debido tiempo. ✨
+    </p>
+
+    <p class="firma">Tu compañero de aventuras ❤️</p>
+  </section>
+
+  <footer>
+    Bajo el mismo cielo, mirando hacia nuevas estrellas. ✨
+  </footer>
 </main>
 
 <script>
-function responder(correcta) {
-  const mensaje = document.getElementById("mensaje");
-  if (correcta) {
-    mensaje.textContent = "¡Esa es! ❤️ Abre tu cartita...";
-    document.getElementById("cartaSecreta").style.display = "block";
-    document.getElementById("cartaSecreta").scrollIntoView({
-      behavior: "smooth",
-      block: "start"
-    });
-  } else {
-    mensaje.textContent = "Inténtalo otra vez, mi amor. 💗";
-  }
+/* Estrellas generadas en el navegador */
+const cielo = document.getElementById("cielo");
+
+for (let i = 0; i < 115; i++) {
+  const estrella = document.createElement("span");
+  estrella.className = "estrella";
+  estrella.style.left = Math.random() * 100 + "%";
+  estrella.style.top = Math.random() * 100 + "%";
+  estrella.style.setProperty(
+    "--duracion", (2 + Math.random() * 4) + "s"
+  );
+  estrella.style.animationDelay = Math.random() * 4 + "s";
+  const tamano = 1 + Math.random() * 2;
+  estrella.style.width = tamano + "px";
+  estrella.style.height = tamano + "px";
+  cielo.appendChild(estrella);
+}
+
+function irA(id) {
+  document.getElementById(id).scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+function abrirCarta() {
+  const carta = document.getElementById("carta");
+  carta.classList.remove("oculto");
+  irA("carta");
+}
+
+function mostrarFinal() {
+  const final = document.getElementById("final");
+  final.classList.remove("oculto");
+  irA("final");
+}
+
+function abrirMusica() {
+  window.open(
+    "https://www.youtube.com/results?search_query=RADWIMPS+Sparkle+official",
+    "_blank",
+    "noopener,noreferrer"
+  );
 }
 </script>
 </body>
