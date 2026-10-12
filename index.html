@@ -1,39 +1,126 @@
-<!DOCTYPE html>
-
+ <!DOCTYPE html>
 <html lang="es">
-
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Una sorpresa para ti ❤️</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 24px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, #fff0f3, #f9e1ed, #fff7f0);
+  color: #633b4a;
+  font-family: Georgia, "Times New Roman", serif;
+}
+.carta {
+  width: 100%;
+  max-width: 480px;
+  padding: 30px 23px;
+  background: white;
+  border: 1px solid #f1cbd7;
+  border-radius: 22px;
+  box-shadow: 0 12px 35px #8c52651c;
+  text-align: center;
+}
+.flores { font-size: 30px; }
+h1, h2 { color: #a34868; }
+p { font-size: 17px; line-height: 1.7; }
+.pregunta {
+  margin-top: 25px;
+  padding: 18px;
+  background: #fff2f5;
+  border-radius: 16px;
+}
+button {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 13px;
+  border: 1px solid #e9bdcc;
+  border-radius: 12px;
+  background: white;
+  color: #743b50;
+  font-size: 16px;
+  cursor: pointer;
+}
+button:hover { background: #ffe4ec; }
+#cartaSecreta {
+  display: none;
+  margin-top: 22px;
+  padding-top: 15px;
+  border-top: 1px solid #efcbd7;
+  text-align: left;
+}
+.firma { text-align: right; color: #a34868; }
+.pequeno { font-size: 13px; opacity: .75; }
+</style>
+</head>
+<body>
+<main class="carta">
+  <div class="flores">🌷 💗 🌷</div>
+  <h1>Una pequeña sorpresa para ti</h1>
+  <p>
+    Para la persona que ocupa un lugar tan especial
+    en mi corazón. Antes de continuar, quiero hacerte
+    una preguntita. ❤️
+  </p>
 
-  <meta charset="UTF-8">
+  <section class="pregunta" id="pregunta">
+    <p><strong>¿Qué es lo que más deseo para nuestra historia?</strong></p>
+    <button onclick="responder(false)">Que todo sea perfecto siempre.</button>
+    <button onclick="responder(true)">Seguir eligiéndonos y construir recuerdos juntos.</button>
+    <button onclick="responder(false)">No volver a tener días difíciles.</button>
+    <p id="mensaje" class="pequeno" aria-live="polite"></p>
+  </section>
 
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <section id="cartaSecreta">
+    <h2 style="text-align:center">Mi amor, 💌</h2>
+    <p>
+      Si pudiera regalarte algo más que flores, sería
+      la certeza de que eres alguien muy especial para mí.
+    </p>
+    <p>
+      Sé que el amor no se demuestra solamente con palabras.
+      También vive en los pequeños detalles, en escuchar,
+      en aprender a comprendernos y en cuidar lo que
+      estamos construyendo.
+    </p>
+    <p>
+      No te prometo ser perfecto. Quiero aprender, mejorar
+      y demostrarte con mis acciones lo mucho que significas
+      para mí. Quiero seguir creando contigo recuerdos que
+      algún día nos hagan sonreír.
+    </p>
+    <p>
+      Preparé algo bonito para nosotros. Por ahora solo te
+      diré esto: guarda un poquito de ilusión para nuestra
+      próxima aventura. ✨
+    </p>
+    <p class="firma">Con todo mi amor,<br>tu esposo ❤️</p>
+  </section>
 
-  <title>Una sorpresa para ti ❤️</title>
+  <p class="pequeno">Hecho con cariño, especialmente para ti.</p>
+</main>
 
-  <style>
-
-    * {
-
-      box-sizing: border-box;
-
-    }
-
-    body {
-
-      margin: 0;
-
-      min-height: 100vh;
-
-      padding: 24px 16px;
-
-      display: flex;
-
-      justify-content: center;
-
-      align-items: center;
-
-      background: linear-gradient(145deg, #fff0f3, #f9e1ed, #fff7f0);
-
-      color: #633b4a;
-
-      font-family: Georgia, "Times New Roman", serif;
+<script>
+function responder(correcta) {
+  const mensaje = document.getElementById("mensaje");
+  if (correcta) {
+    mensaje.textContent = "¡Esa es! ❤️ Abre tu cartita...";
+    document.getElementById("cartaSecreta").style.display = "block";
+    document.getElementById("cartaSecreta").scrollIntoView({
+      behavior: "smooth",
+      block: "start"
+    });
+  } else {
+    mensaje.textContent = "Inténtalo otra vez, mi amor. 💗";
+  }
+}
+</script>
+</body>
+</html>
